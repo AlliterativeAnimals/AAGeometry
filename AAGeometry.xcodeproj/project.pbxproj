@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CFF7EA451EB83B6B002B2F81 /* LPAngle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF7EA401EB83B6B002B2F81 /* LPAngle.swift */; };
-		CFF7EA461EB83B6B002B2F81 /* LPLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF7EA411EB83B6B002B2F81 /* LPLine.swift */; };
-		CFF7EA471EB83B6B002B2F81 /* LPLineGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF7EA421EB83B6B002B2F81 /* LPLineGroup.swift */; };
-		CFF7EA481EB83B6B002B2F81 /* LPPointGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF7EA431EB83B6B002B2F81 /* LPPointGroup.swift */; };
-		CFF7EA491EB83B6B002B2F81 /* LPMinMaxPointRanged.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF7EA441EB83B6B002B2F81 /* LPMinMaxPointRanged.swift */; };
+		CFF7EA451EB83B6B002B2F81 /* AAAngle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF7EA401EB83B6B002B2F81 /* AAAngle.swift */; };
+		CFF7EA461EB83B6B002B2F81 /* AALine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF7EA411EB83B6B002B2F81 /* AALine.swift */; };
+		CFF7EA471EB83B6B002B2F81 /* AALineGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF7EA421EB83B6B002B2F81 /* AALineGroup.swift */; };
+		CFF7EA481EB83B6B002B2F81 /* AAPointGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF7EA431EB83B6B002B2F81 /* AAPointGroup.swift */; };
+		CFF7EA491EB83B6B002B2F81 /* AAMinMaxPointRanged.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF7EA441EB83B6B002B2F81 /* AAMinMaxPointRanged.swift */; };
 		CFF7EA4B1EB83BE4002B2F81 /* AAFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFF7EA4A1EB83BE4002B2F81 /* AAFoundation.framework */; };
 		CFF7EA4E1EB83D86002B2F81 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF7EA4D1EB83D86002B2F81 /* Extensions.swift */; };
 /* End PBXBuildFile section */
@@ -19,11 +19,11 @@
 /* Begin PBXFileReference section */
 		CFF7EA351EB83B54002B2F81 /* AAGeometry.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AAGeometry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFF7EA391EB83B54002B2F81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CFF7EA401EB83B6B002B2F81 /* LPAngle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LPAngle.swift; sourceTree = "<group>"; };
-		CFF7EA411EB83B6B002B2F81 /* LPLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LPLine.swift; sourceTree = "<group>"; };
-		CFF7EA421EB83B6B002B2F81 /* LPLineGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LPLineGroup.swift; sourceTree = "<group>"; };
-		CFF7EA431EB83B6B002B2F81 /* LPPointGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LPPointGroup.swift; sourceTree = "<group>"; };
-		CFF7EA441EB83B6B002B2F81 /* LPMinMaxPointRanged.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LPMinMaxPointRanged.swift; sourceTree = "<group>"; };
+		CFF7EA401EB83B6B002B2F81 /* AAAngle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AAAngle.swift; sourceTree = "<group>"; };
+		CFF7EA411EB83B6B002B2F81 /* AALine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AALine.swift; sourceTree = "<group>"; };
+		CFF7EA421EB83B6B002B2F81 /* AALineGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AALineGroup.swift; sourceTree = "<group>"; };
+		CFF7EA431EB83B6B002B2F81 /* AAPointGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AAPointGroup.swift; sourceTree = "<group>"; };
+		CFF7EA441EB83B6B002B2F81 /* AAMinMaxPointRanged.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AAMinMaxPointRanged.swift; sourceTree = "<group>"; };
 		CFF7EA4A1EB83BE4002B2F81 /* AAFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AAFoundation.framework; path = Carthage/Build/iOS/AAFoundation.framework; sourceTree = "<group>"; };
 		CFF7EA4D1EB83D86002B2F81 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -60,11 +60,11 @@
 		CFF7EA371EB83B54002B2F81 /* AAGeometry */ = {
 			isa = PBXGroup;
 			children = (
-				CFF7EA401EB83B6B002B2F81 /* LPAngle.swift */,
-				CFF7EA411EB83B6B002B2F81 /* LPLine.swift */,
-				CFF7EA421EB83B6B002B2F81 /* LPLineGroup.swift */,
-				CFF7EA431EB83B6B002B2F81 /* LPPointGroup.swift */,
-				CFF7EA441EB83B6B002B2F81 /* LPMinMaxPointRanged.swift */,
+				CFF7EA401EB83B6B002B2F81 /* AAAngle.swift */,
+				CFF7EA411EB83B6B002B2F81 /* AALine.swift */,
+				CFF7EA421EB83B6B002B2F81 /* AALineGroup.swift */,
+				CFF7EA431EB83B6B002B2F81 /* AAPointGroup.swift */,
+				CFF7EA441EB83B6B002B2F81 /* AAMinMaxPointRanged.swift */,
 				CFF7EA391EB83B54002B2F81 /* Info.plist */,
 				CFF7EA4D1EB83D86002B2F81 /* Extensions.swift */,
 			);
@@ -170,12 +170,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFF7EA481EB83B6B002B2F81 /* LPPointGroup.swift in Sources */,
+				CFF7EA481EB83B6B002B2F81 /* AAPointGroup.swift in Sources */,
 				CFF7EA4E1EB83D86002B2F81 /* Extensions.swift in Sources */,
-				CFF7EA471EB83B6B002B2F81 /* LPLineGroup.swift in Sources */,
-				CFF7EA451EB83B6B002B2F81 /* LPAngle.swift in Sources */,
-				CFF7EA461EB83B6B002B2F81 /* LPLine.swift in Sources */,
-				CFF7EA491EB83B6B002B2F81 /* LPMinMaxPointRanged.swift in Sources */,
+				CFF7EA471EB83B6B002B2F81 /* AALineGroup.swift in Sources */,
+				CFF7EA451EB83B6B002B2F81 /* AAAngle.swift in Sources */,
+				CFF7EA461EB83B6B002B2F81 /* AALine.swift in Sources */,
+				CFF7EA491EB83B6B002B2F81 /* AAMinMaxPointRanged.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,6 +351,7 @@
 				CFF7EA3F1EB83B54002B2F81 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

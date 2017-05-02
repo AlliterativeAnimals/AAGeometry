@@ -1,44 +1,41 @@
 //
-//  LPLineGroup.swift
-//  Line Puzzle
-//
-//  Created by David Godfrey on 09/01/2017.
-//  Copyright © 2017 Alliterative Animals. All rights reserved.
+//  AALineGroup.swift
+//  AAGeometry
 //
 
 import AAFoundation
 import UIKit
 
-public struct LPUndirectedLineGroup: LPLineGroupProtocol {
-    public typealias LineType = LPUndirectedLine
-    public let lines: Array<LPUndirectedLine>
+public struct AAUndirectedLineGroup: AALineGroupProtocol {
+    public typealias LineType = AAUndirectedLine
+    public let lines: Array<AAUndirectedLine>
     
-    public init(lines: Array<LPUndirectedLine>) {
+    public init(lines: Array<AAUndirectedLine>) {
         self.lines = lines
     }
 }
 
-public struct LPDirectedLineGroup: LPLineGroupProtocol {
-    public typealias LineType = LPDirectedLine
-    public let lines: Array<LPDirectedLine>
+public struct AADirectedLineGroup: AALineGroupProtocol {
+    public typealias LineType = AADirectedLine
+    public let lines: Array<AADirectedLine>
     
-    public init(lines: Array<LPDirectedLine>) {
+    public init(lines: Array<AADirectedLine>) {
         self.lines = lines
     }
     
-    public func findLines(startingInPath path: UIBezierPath) -> LPDirectedLineGroup {
-        return LPDirectedLineGroup(lines: self.lines.filter({ path.contains($0.start) }))
+    public func findLines(startingInPath path: UIBezierPath) -> AADirectedLineGroup {
+        return AADirectedLineGroup(lines: self.lines.filter({ path.contains($0.start) }))
     }
     
-    public func findLines(endingInPath path: UIBezierPath) -> LPDirectedLineGroup {
-        return LPDirectedLineGroup(lines: self.lines.filter({ path.contains($0.end) }))
+    public func findLines(endingInPath path: UIBezierPath) -> AADirectedLineGroup {
+        return AADirectedLineGroup(lines: self.lines.filter({ path.contains($0.end) }))
     }
     
-    public var undirectedLineGroup: LPUndirectedLineGroup { return LPUndirectedLineGroup(lines: self.lines.map({ $0.undirected })) }
+    public var undirectedLineGroup: AAUndirectedLineGroup { return AAUndirectedLineGroup(lines: self.lines.map({ $0.undirected })) }
 }
 
-public protocol LPLineGroupProtocol: Collection {
-    associatedtype LineType: LPUndirectedLineProtocol
+public protocol AALineGroupProtocol: Collection {
+    associatedtype LineType: AAUndirectedLineProtocol
     typealias Iterator = IndexingIterator<Array<LineType>>
     typealias Index = Int
     typealias _Element = LineType
@@ -51,7 +48,7 @@ public protocol LPLineGroupProtocol: Collection {
     func findLine(closestToPoint point: CGPoint) -> LineType?
 }
 
-public extension LPLineGroupProtocol {
+public extension AALineGroupProtocol {
     public func findLines(startingOrEndingInPath path: UIBezierPath) -> Self {
         let filtered = lines.filter({ $0.sortedPoints.contains(where: { path.contains($0) }) })
         return Self(lines: filtered)
@@ -96,7 +93,7 @@ public extension LPLineGroupProtocol {
 
 
 // Extend LineGroup to be iterable and subscriptable. Moved out to extension just to keep things neat.
-public extension LPLineGroupProtocol {
+public extension AALineGroupProtocol {
     public var startIndex: Int {
         return self.lines.startIndex
     }

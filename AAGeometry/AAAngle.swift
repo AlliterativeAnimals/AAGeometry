@@ -1,19 +1,16 @@
 //
-//  Angle.swift
-//  Line Puzzle
-//
-//  Created by David Godfrey on 07/01/2017.
-//  Copyright © 2017 Alliterative Animals. All rights reserved.
+//  AAAngle.swift
+//  AAGeometry
 //
 
 import AAFoundation
 import CoreGraphics
 
-public struct LPAngle: Comparable, CustomStringConvertible {
+public struct AAAngle: Comparable, CustomStringConvertible {
     public let unitAngle: CGFloat
     
-    public static let zero = LPAngle(unitAngle: 0)
-    public static let fullCircle = LPAngle(unitAngle: 1)
+    public static let zero = AAAngle(unitAngle: 0)
+    public static let fullCircle = AAAngle(unitAngle: 1)
     
     public init(unitAngle: CGFloat) {
         self.unitAngle = unitAngle
@@ -35,12 +32,12 @@ public struct LPAngle: Comparable, CustomStringConvertible {
         return unitAngle * 2.0 * .pi
     }
     
-    public var clamped: LPAngle {
+    public var clamped: AAAngle {
         let upperBound: CGFloat = 1
         let lowerBound: CGFloat = 0
         
         if self.unitAngle > upperBound || self.unitAngle < lowerBound {
-            return LPAngle(unitAngle: self.unitAngle.clamped(to: lowerBound...upperBound))
+            return AAAngle(unitAngle: self.unitAngle.clamped(to: lowerBound...upperBound))
         }
         
         return self
@@ -50,31 +47,31 @@ public struct LPAngle: Comparable, CustomStringConvertible {
         return "LPAngle(unit: \(self.unitAngle))"
     }
     
-    public static func <(lhs: LPAngle, rhs: LPAngle) -> Bool {
+    public static func <(lhs: AAAngle, rhs: AAAngle) -> Bool {
         return lhs.unitAngle < rhs.unitAngle
     }
     
-    public static func >(lhs: LPAngle, rhs: LPAngle) -> Bool {
+    public static func >(lhs: AAAngle, rhs: AAAngle) -> Bool {
         return lhs.unitAngle > rhs.unitAngle
     }
     
-    public static func <=(lhs: LPAngle, rhs: LPAngle) -> Bool {
+    public static func <=(lhs: AAAngle, rhs: AAAngle) -> Bool {
         return lhs.unitAngle <= rhs.unitAngle
     }
     
-    public static func >=(lhs: LPAngle, rhs: LPAngle) -> Bool {
+    public static func >=(lhs: AAAngle, rhs: AAAngle) -> Bool {
         return lhs.unitAngle >= rhs.unitAngle
     }
     
-    public static func ==(lhs: LPAngle, rhs: LPAngle) -> Bool {
+    public static func ==(lhs: AAAngle, rhs: AAAngle) -> Bool {
         return lhs.unitAngle == rhs.unitAngle
     }
     
-    public static func +(lhs: LPAngle, rhs: LPAngle) -> LPAngle {
-        return LPAngle(unitAngle: lhs.unitAngle + rhs.unitAngle)
+    public static func +(lhs: AAAngle, rhs: AAAngle) -> AAAngle {
+        return AAAngle(unitAngle: lhs.unitAngle + rhs.unitAngle)
     }
     
-    public static func -(lhs: LPAngle, rhs: LPAngle) -> LPAngle {
-        return LPAngle(unitAngle: lhs.unitAngle - rhs.unitAngle)
+    public static func -(lhs: AAAngle, rhs: AAAngle) -> AAAngle {
+        return AAAngle(unitAngle: lhs.unitAngle - rhs.unitAngle)
     }
 }

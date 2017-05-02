@@ -1,22 +1,19 @@
 //
-//  Line.swift
-//  Line Puzzle
-//
-//  Created by David Godfrey on 07/01/2017.
-//  Copyright © 2017 Alliterative Animals. All rights reserved.
+//  AALine.swift
+//  AAGeometry
 //
 
 import AAFoundation
 import CoreGraphics
 import UIKit
 
-public protocol LPTubeProtocol {
-    associatedtype LineType: LPUndirectedLineProtocol
+public protocol AATubeProtocol {
+    associatedtype LineType: AAUndirectedLineProtocol
     var lines: [ LineType ] { get }
     init(line: LineType, radius: CGFloat)
 }
 
-public extension LPTubeProtocol {
+public extension AATubeProtocol {
     public var asClosedPath: UIBezierPath {
         let path = UIBezierPath()
         
@@ -30,11 +27,11 @@ public extension LPTubeProtocol {
     }
 }
 
-public class LPUndirectedTube: LPTubeProtocol {
-    public typealias LineType = LPUndirectedLine
-    public let lines: [ LPUndirectedLine ]
+public class AAUndirectedTube: AATubeProtocol {
+    public typealias LineType = AAUndirectedLine
+    public let lines: [AAUndirectedLine]
     
-    public required init(line: LPUndirectedLine, radius: CGFloat) {
+    public required init(line: AAUndirectedLine, radius: CGFloat) {
         let currentStart = line.sortedPoints[0]
         let currentEnd = line.sortedPoints[1]
         
@@ -47,8 +44,8 @@ public class LPUndirectedTube: LPTubeProtocol {
             orthogonalVector = CGVector(dx: 0, dy: radius)
         } else { // No way around it, need to calculate the vector!
             // Find an orthogonal line
-            let orthogonalAngle = LPAngle(unitAngle: line.angle.unitAngle + 0.25)
-            let orthogonalLine = LPUndirectedLine(point: currentStart, angle: orthogonalAngle, length: radius)
+            let orthogonalAngle = AAAngle(unitAngle: line.angle.unitAngle + 0.25)
+            let orthogonalLine = AAUndirectedLine(point: currentStart, angle: orthogonalAngle, length: radius)
             // Convert it to a vector
             orthogonalVector = CGVector(dx: orthogonalLine.dx, dy: orthogonalLine.dy)
         }
@@ -61,12 +58,12 @@ public class LPUndirectedTube: LPTubeProtocol {
     }
 }
 
-public class LPDirectedTube: LPTubeProtocol {
-    public typealias LineType = LPDirectedLine
+public class AADirectedTube: AATubeProtocol {
+    public typealias LineType = AADirectedLine
     
-    public let lines: [ LPDirectedLine ]
+    public let lines: [AADirectedLine]
     
-    public required init(line: LPDirectedLine, radius: CGFloat) {
+    public required init(line: AADirectedLine, radius: CGFloat) {
         let currentStart = line.sortedPoints[0]
         let currentEnd = line.sortedPoints[1]
         
@@ -79,8 +76,8 @@ public class LPDirectedTube: LPTubeProtocol {
             orthogonalVector = CGVector(dx: 0, dy: radius)
         } else { // No way around it, need to calculate the vector!
             // Find an orthogonal line
-            let orthogonalAngle = LPAngle(unitAngle: line.angle.unitAngle + 0.25)
-            let orthogonalLine = LPUndirectedLine(point: currentStart, angle: orthogonalAngle, length: radius)
+            let orthogonalAngle = AAAngle(unitAngle: line.angle.unitAngle + 0.25)
+            let orthogonalLine = AAUndirectedLine(point: currentStart, angle: orthogonalAngle, length: radius)
             // Convert it to a vector
             orthogonalVector = CGVector(dx: orthogonalLine.dx, dy: orthogonalLine.dy)
         }
@@ -93,13 +90,13 @@ public class LPDirectedTube: LPTubeProtocol {
     }
 }
 
-public protocol LPUndirectedLineProtocol: Hashable, LPMinMaxPointRanged {
+public protocol AAUndirectedLineProtocol: Hashable, AAMinMaxPointRanged {
     var sortedPoints: Array<CGPoint> { get }
     var dx: CGFloat { get }
     var dy: CGFloat { get }
     var lengthSquared: CGFloat { get }
     var length: CGFloat { get }
-    var angle: LPAngle { get }
+    var angle: AAAngle { get }
     func isParallelTo(line: Self) -> Bool
     func intersection(with: Self) -> CGPoint?
     func clipTo(rect: CGRect) -> Self?
@@ -109,7 +106,7 @@ public protocol LPUndirectedLineProtocol: Hashable, LPMinMaxPointRanged {
     func applying(_: CGAffineTransform) -> Self
 }
 
-public extension LPUndirectedLineProtocol {
+public extension AAUndirectedLineProtocol {
     public func closestPointOnLineTo(point: CGPoint) -> CGPoint {
         let pointArray = Array(self.sortedPoints)
         let first = pointArray.first!
@@ -137,7 +134,7 @@ public extension LPUndirectedLineProtocol {
     }
     
     public func vectorTo(point: CGPoint) -> CGVector {
-        return LPDirectedLine(
+        return AADirectedLine(
             start: self.closestPointOnLineTo(point: point),
             end: point
         )
@@ -184,7 +181,7 @@ public extension LPUndirectedLineProtocol {
         return self.angle.unitAngle.clamped(to: range) == line.angle.unitAngle.clamped(to: range)
     }
     
-    public func couldIntersectWith(_ rectLike: LPMinMaxPointRanged) -> Bool {
+    public func couldIntersectWith(_ rectLike: AAMinMaxPointRanged) -> Bool {
         let isAboveRect   = rectLike.maxY < self.minY
         let isBelowRect   = rectLike.minY > self.maxY
         let isRightOfRect = rectLike.maxX < self.minX
@@ -231,11 +228,11 @@ public extension LPUndirectedLineProtocol {
             ]
         } else { // Another angle!
             // Draw orthogonal lines out from start/end points
-            let orthogonalAngle = LPAngle(unitAngle: self.angle.unitAngle + 0.25)
-            let startStrange = LPUndirectedLine(point: currentStart, angle: orthogonalAngle, length: radius)
-            let startCharm = LPUndirectedLine(point: currentStart, angle: orthogonalAngle, length: -radius)
-            let endStrange = LPUndirectedLine(point: currentEnd, angle: orthogonalAngle, length: radius)
-            let endCharm = LPUndirectedLine(point: currentEnd, angle: orthogonalAngle, length: -radius)
+            let orthogonalAngle = AAAngle(unitAngle: self.angle.unitAngle + 0.25)
+            let startStrange = AAUndirectedLine(point: currentStart, angle: orthogonalAngle, length: radius)
+            let startCharm = AAUndirectedLine(point: currentStart, angle: orthogonalAngle, length: -radius)
+            let endStrange = AAUndirectedLine(point: currentEnd, angle: orthogonalAngle, length: radius)
+            let endCharm = AAUndirectedLine(point: currentEnd, angle: orthogonalAngle, length: -radius)
             
             // Get the points that DONT match the current line, they're our box!
             points = [
@@ -252,7 +249,7 @@ public extension LPUndirectedLineProtocol {
     }
 }
 
-public struct LPUndirectedLine: LPUndirectedLineProtocol, Hashable, LPMinMaxPointRanged {
+public struct AAUndirectedLine: AAUndirectedLineProtocol, Hashable, AAMinMaxPointRanged {
     public let minX: CGFloat
     public let maxX: CGFloat
     public let minY: CGFloat
@@ -272,7 +269,7 @@ public struct LPUndirectedLine: LPUndirectedLineProtocol, Hashable, LPMinMaxPoin
         self.maxY = max(point.y, anotherPoint.y)
     }
 
-    public init(point: CGPoint, angle: LPAngle, length: CGFloat) {
+    public init(point: CGPoint, angle: AAAngle, length: CGFloat) {
         let radians = angle.radians
         let anotherPoint = CGPoint(x: point.x + sin(radians) * length, y: point.y + cos(radians) * length)
         let unsortedPoints = [ point, anotherPoint ]
@@ -304,15 +301,15 @@ public struct LPUndirectedLine: LPUndirectedLineProtocol, Hashable, LPMinMaxPoin
         return pow(self.lengthSquared, 0.5)
     }
     
-    public var angle: LPAngle {
-        return LPAngle(radians: atan2(self.dx, self.dy))
+    public var angle: AAAngle {
+        return AAAngle(radians: atan2(self.dx, self.dy))
     }
     
     public var hashValue: Int {
         return "(\(self.sortedPoints[0]),\(self.sortedPoints[1]))".hashValue
     }
 
-    public func clipTo(rect: CGRect) -> LPUndirectedLine? {
+    public func clipTo(rect: CGRect) -> AAUndirectedLine? {
         let pointA = self.sortedPoints.first!
         let pointB = self.sortedPoints.last!
         
@@ -346,27 +343,27 @@ public struct LPUndirectedLine: LPUndirectedLineProtocol, Hashable, LPMinMaxPoin
                 }
             }
             
-            return LPUndirectedLine(point: newPoints[0], anotherPoint: newPoints[1])
+            return AAUndirectedLine(point: newPoints[0], anotherPoint: newPoints[1])
         } else {
             return self
         }
     }
     
-    public static func ==(lhs: LPUndirectedLine, rhs: LPUndirectedLine) -> Bool {
+    public static func ==(lhs: AAUndirectedLine, rhs: AAUndirectedLine) -> Bool {
         return lhs.hashValue == rhs.hashValue
     }
     
-    public func applying(_ transform: CGAffineTransform) -> LPUndirectedLine {
+    public func applying(_ transform: CGAffineTransform) -> AAUndirectedLine {
         let newPoints = self.sortedPoints.map({ $0.applying(transform) })
-        return LPUndirectedLine(point: newPoints[0], anotherPoint: newPoints[1])
+        return AAUndirectedLine(point: newPoints[0], anotherPoint: newPoints[1])
     }
     
-    public func movedBy(vector: CGVector) -> LPUndirectedLine {
-        return LPUndirectedLine(point: self.sortedPoints[0].movedBy(vector: vector), anotherPoint: self.sortedPoints[1].movedBy(vector: vector))
+    public func movedBy(vector: CGVector) -> AAUndirectedLine {
+        return AAUndirectedLine(point: self.sortedPoints[0].movedBy(vector: vector), anotherPoint: self.sortedPoints[1].movedBy(vector: vector))
     }
 }
 
-public struct LPDirectedLine: LPUndirectedLineProtocol {
+public struct AADirectedLine: AAUndirectedLineProtocol {
     public var sortedPoints: Array<CGPoint> {
         let unsortedPoints = [ self.start, self.end ]
         return unsortedPoints.sorted { a, b in
@@ -390,23 +387,23 @@ public struct LPDirectedLine: LPUndirectedLineProtocol {
         return self.undirected.length
     }
     
-    public var undirected: LPUndirectedLine {
-        return LPUndirectedLine(point: self.start, anotherPoint: self.end)
+    public var undirected: AAUndirectedLine {
+        return AAUndirectedLine(point: self.start, anotherPoint: self.end)
     }
     
-    public var reversed: LPDirectedLine {
-        return LPDirectedLine(start: self.end, end: self.start)
+    public var reversed: AADirectedLine {
+        return AADirectedLine(start: self.end, end: self.start)
     }
     
-    public var angle: LPAngle {
-        return LPAngle.init(radians: atan2(self.dx, self.dy))
+    public var angle: AAAngle {
+        return AAAngle.init(radians: atan2(self.dx, self.dy))
     }
     
     public var vector: CGVector {
         return CGVector(dx: self.dx, dy: self.dy)
     }
     
-    public func isParallelTo(line: LPDirectedLine) -> Bool {
+    public func isParallelTo(line: AADirectedLine) -> Bool {
         return self.angle == line.angle
     }
     
@@ -420,7 +417,7 @@ public struct LPDirectedLine: LPUndirectedLineProtocol {
         self.maxY = max(start.y, end.y)
     }
 
-    public init(start: CGPoint, angle: LPAngle, length: CGFloat) {
+    public init(start: CGPoint, angle: AAAngle, length: CGFloat) {
         self.start = start
         let radians = angle.radians
         self.end = CGPoint(
@@ -434,22 +431,22 @@ public struct LPDirectedLine: LPUndirectedLineProtocol {
         self.maxY = max(start.y, end.y)
     }
     
-    public static func ==(lhs: LPDirectedLine, rhs: LPDirectedLine) -> Bool {
+    public static func ==(lhs: AADirectedLine, rhs: AADirectedLine) -> Bool {
         return lhs.hashValue == rhs.hashValue
     }
     
     // Line intersection is not directional. Either crosses or doesn't.
-    public func intersection(with other: LPUndirectedLine) -> CGPoint? {
+    public func intersection(with other: AAUndirectedLine) -> CGPoint? {
         return self.undirected.intersection(with: other)
     }
     
-    public func intersection(with other: LPDirectedLine) -> CGPoint? {
+    public func intersection(with other: AADirectedLine) -> CGPoint? {
         return self.intersection(with: other.undirected)
     }
     
     public var hashValue: Int { return "\(self.start) to \(self.end)".hashValue }
     
-    public func clipTo(rect: CGRect) -> LPDirectedLine? {
+    public func clipTo(rect: CGRect) -> AADirectedLine? {
         
         if !self.couldIntersectWith(rect) {
             return nil
@@ -488,18 +485,18 @@ public struct LPDirectedLine: LPUndirectedLineProtocol {
                 fatalError("Could not clip to line; logic error!")
             }
             
-            return LPDirectedLine(start: start, end: end)
+            return AADirectedLine(start: start, end: end)
         } else {
             return self
         }
     }
     
-    public func applying(_ transform: CGAffineTransform) -> LPDirectedLine {
-        return LPDirectedLine(start: self.start.applying(transform), end: self.end.applying(transform))
+    public func applying(_ transform: CGAffineTransform) -> AADirectedLine {
+        return AADirectedLine(start: self.start.applying(transform), end: self.end.applying(transform))
     }
     
-    public func movedBy(vector: CGVector) -> LPDirectedLine {
-        return LPDirectedLine(start: self.start.movedBy(vector: vector), end: self.end.movedBy(vector: vector))
+    public func movedBy(vector: CGVector) -> AADirectedLine {
+        return AADirectedLine(start: self.start.movedBy(vector: vector), end: self.end.movedBy(vector: vector))
     }
 }
 

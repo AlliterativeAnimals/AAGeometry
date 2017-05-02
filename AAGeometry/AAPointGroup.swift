@@ -1,23 +1,20 @@
 //
-//  LPPointGroup.swift
-//  Line Puzzle
-//
-//  Created by David Godfrey on 01/02/2017.
-//  Copyright © 2017 Alliterative Animals. All rights reserved.
+//  AAPointGroup.swift
+//  AAGeometry
 //
 
 import AAFoundation
 import UIKit
 
-public struct LPPointGroup {
+public struct AAPointGroup {
     public var points: Array<CGPoint>
     
     public init(points: Array<CGPoint>) {
         self.points = points
     }
     
-    public func findPoints(inPath path: UIBezierPath) -> LPPointGroup {
-        return LPPointGroup(points: self.points.filter { point in path.contains(point) })
+    public func findPoints(inPath path: UIBezierPath) -> AAPointGroup {
+        return AAPointGroup(points: self.points.filter { point in path.contains(point) })
     }
     
     public func findPoint(closestToPoint targetPoint: CGPoint) -> CGPoint? {
@@ -26,13 +23,13 @@ public struct LPPointGroup {
         
         for groupPoint in self.points {
             if let previousDistance = distance {
-                let newDistance = LPDirectedLine(start: targetPoint, end: groupPoint).length
+                let newDistance = AADirectedLine(start: targetPoint, end: groupPoint).length
                 if newDistance < previousDistance {
                     distance = newDistance
                     closestPoint = groupPoint
                 }
             } else {
-                distance = LPDirectedLine(start: targetPoint, end: groupPoint).length
+                distance = AADirectedLine(start: targetPoint, end: groupPoint).length
                 closestPoint = groupPoint
             }
         }
@@ -40,7 +37,7 @@ public struct LPPointGroup {
         return closestPoint
     }
     
-    public func hasChangedSince(previousPointGroup previous: LPPointGroup, withTolerance tolerance: CGFloat = 1) -> Bool {
+    public func hasChangedSince(previousPointGroup previous: AAPointGroup, withTolerance tolerance: CGFloat = 1) -> Bool {
         for (index, previousPoint) in previous.enumerated() {
             if !self[index].isCloseTo(point: previousPoint, withTolerance: tolerance) {
                 return true // shortcut out, only needs one point out of place!
@@ -52,7 +49,7 @@ public struct LPPointGroup {
     }
 }
 
-public extension LPPointGroup {
+public extension AAPointGroup {
     public var minX: CGFloat? {
         return self.points.map({ $0.x }).min()
     }
@@ -72,7 +69,7 @@ public extension LPPointGroup {
 
 
 // Extend LineGroup to be iterable and subscriptable. Moved out to extension just to keep things neat.
-extension LPPointGroup: Collection {
+extension AAPointGroup: Collection {
     public typealias Iterator = IndexingIterator<Array<CGPoint>>
     public typealias Index = Int
     public typealias _Element = CGPoint

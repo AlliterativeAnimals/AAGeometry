@@ -2,25 +2,22 @@
 //  Extensions.swift
 //  AAGeometry
 //
-//  Created by David Godfrey on 02/05/2017.
-//  Copyright © 2017 Alliterative Animals. All rights reserved.
-//
 
 import CoreGraphics
 
-extension CGRect: LPMinMaxPointRanged {}
+extension CGRect: AAMinMaxPointRanged {}
 
 public extension CGRect {
-    public func edgeLine(along: CGRectEdge) -> LPUndirectedLine {
+    public func edgeLine(along: CGRectEdge) -> AAUndirectedLine {
         switch along {
         case .maxXEdge:
-            return LPUndirectedLine(point: self.pointMaxXMinY, anotherPoint: self.pointMaxXMaxY)
+            return AAUndirectedLine(point: self.pointMaxXMinY, anotherPoint: self.pointMaxXMaxY)
         case .minXEdge:
-            return LPUndirectedLine(point: self.pointMinXMinY, anotherPoint: self.pointMinXMaxY)
+            return AAUndirectedLine(point: self.pointMinXMinY, anotherPoint: self.pointMinXMaxY)
         case .maxYEdge:
-            return LPUndirectedLine(point: self.pointMinXMaxY, anotherPoint: self.pointMaxXMaxY)
+            return AAUndirectedLine(point: self.pointMinXMaxY, anotherPoint: self.pointMaxXMaxY)
         case .minYEdge:
-            return LPUndirectedLine(point: self.pointMinXMinY, anotherPoint: self.pointMaxXMinY)
+            return AAUndirectedLine(point: self.pointMinXMinY, anotherPoint: self.pointMaxXMinY)
         }
     }
 }
